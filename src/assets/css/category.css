@@ -1,0 +1,31 @@
+.category_page{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.category_component_main{
+    border:3px solid red;
+    margin: 10px
+}
+.category_component{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+.category_component_start{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.category_component_key{
+    width: 100px;
+}
+.category_component_row{
+    display: flex;
+    flex-direction: row;
+}
+.imagewidth{
+    width: 350px;
+}
