@@ -16,25 +16,25 @@ const AddCategory = () => {
         setItem(data.data);
       };
 
-      useEffect(() => {
-        getItems();
-      },[]);
+    //   useEffect(() => {
+    //     getItems();
+    //   },[]);
 
-    const handleSelect = (e)=>{
-        let value = Array.from(e, option => option.value);
-        setSelectedItem(value);
-    }
+    // const handleSelect = (e)=>{
+    //     let value = Array.from(e, option => option.value);
+    //     setSelectedItem(value);
+    // }
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        console.log(selecteditem);//['2','3']
+
 
         var body = {
             name: name,
             image: image
         }
 
-        console.log(body);
+        // console.log(body);
         
         axios({
             method: 'post',
@@ -43,7 +43,7 @@ const AddCategory = () => {
             headers: { "Content-Type": "multipart/form-data" },
         })
         .then(function (response) {
-            console.log(response);
+            console.log("response ",response);
         })
         .catch(function (error) {
             console.log(error);
@@ -61,7 +61,8 @@ const AddCategory = () => {
                 <div className='category_component_row'>
                     <div className='category_component_key'>Name* :</div> 
                     <div>
-                        <input required type="text" name="name" placeholder="Name" value={name} onChange={e => setName(e.target.value)}/>
+                        {/* <input required type="text" name="name" placeholder="Name" value={name} onChange={e => setName(e.target.value)}/> */}
+                        <input required type="text" name='name' value={name} onChange={e=>setName(e.target.value)}></input>
                         </div>
                 </div>
                 <hr/>

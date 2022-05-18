@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/css/category.css';
 import ItemImage from '../../assets/images/category-manager-640x230.jpg';
-
+import axios from "axios";
 
 
 const CategoryList = (props) => {
+
     const [updateToggle, setUpdateToggle] = useState(0);
 
     const [name, setName] = useState(props.ahmad.name);
     const [image, setImage] = useState('');
+    const [itemCategories, setItemCategories] = useState([]);
 
     const updateCurrentCategory = (e)=>{
         props.updateCategory(e,props.ahmad.id,name,image);
         setUpdateToggle(0);
     }
+
+    const getCategory = async (id) => {
+        const { data } = await axios(`http://127.0.0.1:8000/api/categories/${id}`);
+        setItemCategories(data.item_categories);
+        console.log(data.item_categories)
+    }
+
+    useEffect(() => {
+        getCategory(props.ahmad.id);
+        
+      },[]);
 
 
     return(
@@ -28,13 +41,15 @@ const CategoryList = (props) => {
                         <div className='category_component_key'>Name:</div> 
                         <div>{props.ahmad.name}</div>
                     </div>
-                    </div>
+             
+                </div>
                     <hr/>
                     <button onClick={()=>props.deleteCategory(props.ahmad.id)}>Delete</button>
                     <br></br>
                     <button onClick={()=>setUpdateToggle(1)}>Edit</button>
                     <hr/>
-            </div> : 
+            </div> 
+            : 
             <div className="category_component_main category_component">
             <img src= {"http://127.0.0.1:8000/image/" + props.ahmad.image}/>
            
@@ -59,3 +74,26 @@ const CategoryList = (props) => {
 }
 
 export default CategoryList;
+
+
+       {/* 
+                    <div className='category_component_row'>
+                        <div className='category_component_key'>Items:</div> 
+                        <select name="cars" multiple>
+                            {props.items.map((value,index)=>{
+                                let found = false;
+                                itemCategories.map((item)=>{
+                                    return item.id == value.id ? found = true:"";
+
+                                })
+                                console.log(found)
+
+
+                                return <option value={value.id} selected={found?true:false}>{value.name}</option>
+                            }
+                            
+                            )}
+                            
+                        </select>
+                    </div> 
+                    */}

@@ -7,10 +7,16 @@ import axios from "axios";
 const CategoryPage = () => {
 
     const [categories, setCategories] = useState([]);
+    const [items, setItems] = useState([]);
 
     const getAllCategorie = async () => {
         const { data } = await axios("http://127.0.0.1:8000/api/categories");
         setCategories(data.data);
+    }
+
+    const getAllItems = async () => {
+        const { data } = await axios("http://127.0.0.1:8000/api/items");
+        setItems(data.data);
     }
 
     const deleteCategory = async(id)=>{
@@ -25,10 +31,7 @@ const CategoryPage = () => {
         var body = {
             name: name,
             image: image
-        }
-
-        console.log(body);
-        
+        }        
         axios({
             method: 'post',
             url: `http://127.0.0.1:8000/api/categories/update/${id}`,
@@ -62,13 +65,14 @@ const CategoryPage = () => {
 
     useEffect(() => {
         getAllCategorie();
+        getAllItems();
       },[]);
 
     return(
         <>
             <h1>Category Page</h1>
             <div className="category_page">
-               {categories.map((value)=>  <CategoryComponent key={value.id} ahmad={value} deleteCategory={deleteCategory} updateCategory={updateCategory}/>)}
+               {categories.map((value)=>  <CategoryComponent key={value.id} ahmad={value} deleteCategory={deleteCategory} updateCategory={updateCategory} items={items}/>)}
             </div>
         
         </>
